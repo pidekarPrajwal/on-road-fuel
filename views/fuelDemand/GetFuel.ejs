@@ -1,0 +1,222 @@
+<%= layout("./layout/boilerplate.ejs") %>
+
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+
+<div class="row mt-3">
+  <div class="col-8 offset-2">
+    <h1 class="heading">Fuel Order By <%= result[0].name %></h1>
+    <form action="/fuelorder/<%=result[0].email%>" method="post" class="needs-validation" novalidate>
+      <div class="mb-3">
+        <label for="name" class="form-label"><b>Name</b></label>
+        <input
+          name="name"
+          placeholder="Enter a Name :  "
+          id="name"
+          value="<%= result[0].name %>"
+          readonly
+          required
+          class="form-control"
+        />
+        <div class="valid-feedback">Looks good!</div>
+      </div>
+
+      <div class="mb-3">
+        <label for="email" class="form-label"><b>E-Mail</b></label>
+        <input
+          name="email"
+          placeholder="Enter a Email "
+          id="username"
+          value="<%= result[0].email %>"
+          readonly
+          required
+          class="form-control"
+        />
+        <div class="valid-feedback">Looks good!</div>
+      </div>
+
+      <div class="mb-3">
+        <label for="mobile" class="form-label"><b>Mobile No. :</b> </label>
+        <input
+          name="mobno"
+          placeholder="Enter a Mobile Number "
+          id="mobno"
+          value="<%= result[0].mobno%>"
+          readonly
+          required
+          class="form-control"
+        />
+        <div class="valid-feedback" id="message">Looks Good !</div>
+      </div>
+
+      <div class="mb-3">
+        <label for="Address" class="form-label"><b>Adress</b> </label>
+        <input
+          name="address"
+          placeholder=" Where are you NOW.!"
+          id="address"
+          type="text"
+          required
+          class="form-control"
+        />
+        <div class="valid-feedback" id="message">Looks Good !</div>
+      </div>
+
+      <div class="row">
+        <div class="mb-3 col-md-6">
+          <label for="fuel" class="form-label"><b>Order..</b></label>
+          <select
+            class="form-control form-select"
+            id="fuel"
+            name="fuelType"
+            aria-label="Default select example"
+          >
+            <option value="Disel">Disel</option>
+            <option value="fuel" selected>fuel</option>
+            <option value="Engine Oil">Engine Oil</option>
+          </select>
+          <div class="invalid-feedback">Please provide a valid Price.</div>
+        </div>
+
+        <div class="mb-3 col-md-4">
+          <label for="num1" class="form-label"><b>Liter.</b></label>
+          <select
+            class="form-select"
+            name="num1"
+            id="num1"
+            aria-label="Default select example"
+          >
+            <option value="50">0.5 ltr = 50</option>
+            <option value="100" selected>1 ltr = 100</option>
+            <option value="200">2 ltr = 200</option>
+            <option value="300">3 ltr= 300</option>
+          </select>
+          <div class="invalid-feedback">Please provide a valid Location.</div>
+        </div>
+      </div>
+
+      
+      <!-- fuel price -->
+      <div class="mb-3">
+        <label for="sum" class="form-label"> <b>Price</b></label>
+        <input
+          type="text"
+          id="sum"
+          name="sum"
+          aria-live="polite"
+          readonly
+          value="125 "
+          class="form-control"
+        />
+        <span> Adding 25 Delivery Charges </span>
+
+        <div class="valid-feedback" id="message">Looks Good !</div>
+        <!-- Rupee code &#x20B9 \u20B9-->
+      </div>
+
+      <div class="mb-3">
+        <h1>NearBy Fuel Stations on Google Map</h1>
+        <div id="map" aria-label="Interactive map for selecting location">
+          map
+        </div>
+
+        <div class="valid-feedback" id="message">Looks Good !</div>
+      </div>
+
+      <div class="mb-3">
+        <label for="OrderPlace" class="form-label"
+          ><b>Nearest Fuel Station</b>
+        </label>
+        <input
+          name="OrderPlace"
+          placeholder=" Choose fuel Station On map "
+          id="OrderPlace"
+          type="text"
+          readonly
+          readonly
+          aria-live="polite"
+          class="form-control"
+        />
+        <div class="valid-feedback" id="message">Looks Good !</div>
+      </div>
+
+      <button class="btn btn-success p-2 del-btn" id="btn">
+        Order Fuel...
+      </button>
+    </form>
+    <br /><br />
+  </div>
+</div>
+
+<!-- CODE for addtion of two number and display them -->
+<script>
+  const num1Select = document.getElementById("num1");
+  const sumInput = document.getElementById("sum");
+
+  function updateSum() {
+    const val1 = parseInt(num1Select.value, 10) || 0;
+    sumInput.value = val1 + parseInt(25) + " \u20B9";
+  }
+  num1Select.addEventListener("change", updateSum);
+
+  updateSum();
+</script>
+
+<!-- Adding map on web page -->
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script>
+  // Center the map on Amravati, Maharashtra
+  const amravatiCenter = [20.932, 77.7527];
+  const map = L.map("map").setView(amravatiCenter, 13);
+  // Add OpenStreetMap tile layer
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    attribution: "© OpenStreetMap contributors",
+    maxZoom: 19,
+  }).addTo(map);
+  // Sample fuel stations in Amravati (coordinates and names)
+  const fuelStations = [
+    { name: "HP Petrol Pump, Sayeda", coords: [20.9365, 77.757] },
+    { name: "IOC Petrol Pump, N.H. 6", coords: [20.935, 77.765] },
+    { name: "Bharat Petroleum, Khamgaon Road", coords: [20.9255, 77.7455] },
+    { name: "Reliance Fuel Station, Amravati", coords: [20.94, 77.75] },
+    { name: "Shell Fuel Station, Shahid Chowk", coords: [20.9342, 77.7625] },
+    { name: "Indian Oil, Jail Road", coords: [20.931, 77.758] },
+    { name: "Bharat Petroleum, Wadala Naka", coords: [20.9285, 77.743] },
+    { name: "HP Petrol Pump, Rangnath Colony", coords: [20.9378, 77.7499] },
+    { name: "Reliance Fuel, Shyam Nagar", coords: [20.9331, 77.7695] },
+    { name: "IOC Petrol Pump, Anand Nagar", coords: [20.922, 77.7555] },
+    { name: "HP Petrol Pump, Ravi Nagar", coords: [20.9395, 77.7601] },
+    { name: "IOC Petrol Pump, Shamk Chowk", coords: [20.9322, 77.7648] },
+  ];
+
+  // Create a marker that will track user selections
+  let userMarker;
+  // Add markers for fuel stations and set click listeners updating input box
+  fuelStations.forEach((station) => {
+    const marker = L.marker(station.coords).addTo(map).bindPopup(station.name);
+    marker.on("click", () => {
+      // Update the input box with the station name
+      document.getElementById("OrderPlace").value = station.name;
+      // Move or create the userMarker to the fuel station location
+      if (userMarker) {
+        userMarker.setLatLng(station.coords);
+      } else {
+        userMarker = L.marker(station.coords, { opacity: 0.7 }).addTo(map);
+      }
+    });
+  });
+  // On map click (not on fuel station markers), show coordinates and move userMarker
+  map.on("click", function (e) {
+    const { lat, lng } = e.latlng;
+    // Update input box with coordinates
+    document.getElementById("location").value =
+      lat.toFixed(6) + ", " + lng.toFixed(6);
+    // Move or create userMarker at clicked position
+    if (userMarker) {
+      userMarker.setLatLng(e.latlng);
+    } else {
+      userMarker = L.marker(e.latlng, { opacity: 0.7 }).addTo(map);
+    }
+  });
+</script>

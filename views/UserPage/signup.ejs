@@ -1,0 +1,163 @@
+<%= layout("./layout/boilerplate.ejs") %>
+
+
+
+
+
+<div class="row mt-3">
+  <div class="col-8 offset-2">
+    <h1 class="heading">SingUp For On Road Fuel .!</h1>
+    <form action="/signup" method="post" class="needs-validation" novalidate>
+      <div class="mb-3">
+        <label for="name" class="form-label">Name</label>
+        <input
+          name="name"
+          placeholder="Enter a Name :  "
+          id="name"
+          type="text"
+          required
+          class="form-control"
+        />
+        <div class="valid-feedback">Looks good!</div>
+      </div>
+
+      <div class="mb-3">
+        <label for="username" class="form-label">Username</label>
+        <input
+          name="username"
+          placeholder="Enter a Username "
+          id="username"
+          type="text"
+          required
+          class="form-control"
+        />
+        <div class="valid-feedback">Looks good!</div>
+      </div>
+
+      <div class="mb-3">
+        <label for="email" class="form-label">E-Mail</label>
+        <input
+          name="email"
+          placeholder="Enter a Email "
+          id="username"
+          type="email"
+          required
+          class="form-control"
+        />
+        <div class="valid-feedback">Looks good!</div>
+      </div>
+
+      <div class="mb-3">
+        <label for="mobile" class="form-label">Mobile No. : </label>
+        <input
+          name="mobno"
+          placeholder="Enter a Mobile Number "
+          id="mobno"
+          type="number"
+          required
+          class="form-control"
+        />
+        <div class="valid-feedback" id="message">Looks Good !</div>
+      </div>
+
+      <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input
+          name="password"
+          placeholder="Enter a Password "
+          id="password"
+          type="password"
+          required
+          class="form-control"
+        />
+        <div class="valid-feedback" id="message">Looks Good !</div>
+      </div>
+
+      <!-- Confrim Password -->
+      <div class="mb-3">
+        <label for="cfpass" class="form-label"> Confrim Password</label>
+        <input
+          name="cfpass"
+          placeholder="Enter a Confrim Password "
+          id="cfpass"
+          type="text"
+          required
+          class="form-control"
+        />
+        <div class="valid-feedback" id="message">Looks Good !</div>
+      </div>
+
+      <button
+        class="btn btn-success p-2 del-btn"
+        id="btn"
+        onclick="checkPass(event)"
+      >
+        SignUp..!
+      </button>
+      <br /><br />
+    </form>
+  </div>
+</div>
+
+
+
+<!-- Blackbox -->
+ <script>
+   function checkPass(event) {
+            const password = document.getElementById("password");
+            const confirmPassword = document.getElementById("cfpass");
+            const message = document.getElementById("message");
+            // Clear previous messages
+            message.innerHTML = "";
+            if (password.value !== confirmPassword.value) {
+                alert("Passwords do not match");
+                message.innerHTML = "Passwords do not match!";
+                message.style.color = "red";
+                event.preventDefault(); // Prevent form submission
+                return false; // Return false to indicate failure
+            } else {
+                message.innerHTML = "Passwords match!";
+                message.style.color = "green"; // Optional: Change color for success
+            }
+        }
+ </script>
+
+
+<!-- <script>
+  function checkPass() {
+    const password = document.getElementById("password");
+    const confirmPasord = document.getElementById("cfpass");
+    const message = document.getElementById("message");
+    if (password.value !== confirmPasord.value) {
+      alert("passord not matched");
+      message.innerHTML = "Passwords not  match!";
+      message.style.color = "red";
+      event.preventDefault();
+      return false;
+      alert("Password or confrim password not matched..");
+    } else {
+      message.innerHTML = "Passwords match!";
+    }
+  }
+</script> -->
+
+
+<!-- <script>
+  const form = document.getElementById("myForm");
+  const passwordInput = document.getElementById("password");
+  const confirmPasswordInput = document.getElementById("cfpass");
+  const message = document.getElementById("message");
+  // const errorMsg = document.getElementById('errorMsg');
+  form.addEventListener("submit", function (event) {
+    // Clear previous error message
+    // errorMsg.textContent = '';
+    // Validate password confirmation
+    if (passwordInput.value !== confirmPasswordInput.value) {
+      event.preventDefault(); // Stop form submission
+      message.innerHTML = "Passwords not  match!";
+      message.color = "red";
+      alert("passord not matched");
+    } else alert("password matched......");
+    // You can add other validations here and prevent submission similarly
+  });
+</script> -->

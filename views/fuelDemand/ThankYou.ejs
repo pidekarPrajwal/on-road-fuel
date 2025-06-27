@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Thank You - Fuel Demand</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap");
+      * {
+        box-sizing: border-box;
+      }
+      /* body, html {
+    margin: 0; padding: 0;
+    height: 100%;
+    font-family: 'Poppins', sans-serif;
+    background-color: #ffdbbb;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+  } */
+      .container {
+        background: linear-gradient(135deg, #ddd, #fff0e1);
+        padding: 30px 60px 50px;
+        border-radius: 20px;
+        box-shadow: 0 8px 30px rgba(40, 39, 38, 0.7);
+        max-width: 100%;
+        width: 100%;
+        text-align: center;
+      }
+      .icon {
+        font-size: 52px;
+        margin-bottom: 30px;
+        filter: drop-shadow(0 0 10px #82807d);
+        transition: transform 0.3s ease;
+      }
+      .icon:hover {
+        transform: scale(1.15) rotate(10deg);
+      }
+      h1 {
+        font-size: 2rem;
+        margin-bottom: 18px;
+        font-weight: 700;
+        letter-spacing: 1.5px;
+        text-shadow: 1.5px 1.5px 6px rgba(0, 0, 0, 0.5);
+      }
+      p {
+        font-size: 1.3rem;
+        margin-bottom: 40px;
+        font-weight: 500;
+        text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
+      }
+      .buttons {
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+      }
+      button {
+        font-family: "Poppins", sans-serif;
+        font-weight: 700;
+        font-size: 1.1rem;
+        padding: 16px 40px;
+        border-radius: 50px;
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        user-select: none;
+        box-shadow: 0 5px 18px rgba(0, 0, 0, 0.25);
+        min-width: 160px;
+      }
+      .btn-cancel {
+        background: #444;
+        color: #ddd;
+      }
+      .btn-cancel:hover {
+        background: #666;
+        box-shadow: 0 7px 22px rgba(102, 102, 102, 0.9);
+      }
+      .btn-home {
+        background: #fff0e1;
+        color: #ff6f00;
+        box-shadow: 0 5px 22px rgba(255, 111, 0, 0.8);
+      }
+      .btn-home:hover {
+        background: #ffc870;
+        box-shadow: 0 8px 28px rgba(255, 168, 60, 1);
+        color: #3a1b00;
+      }
+      @media (max-width: 720px) {
+        .container {
+          padding: 40px 30px 40px;
+          max-width: 90vw;
+        }
+        h1 {
+          font-size: 2rem;
+        }
+        p {
+          font-size: 1.1rem;
+          margin-bottom: 30px;
+        }
+        .buttons {
+          flex-direction: column;
+          gap: 20px;
+        }
+        button {
+          min-width: 100%;
+          padding: 14px 0;
+          font-size: 1.1rem;
+        }
+      }
+      .profile-div {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .profile-card {
+        border-radius: 12px;
+        box-shadow: 0 8px 24px rgb(0 0 0 / 0.1);
+        width: 320px;
+        padding: 1rem;
+        text-align: center;
+      }
+      .profile-card h2 {
+        margin: 0 0 0.25rem;
+        font-weight: 700;
+        color: #333;
+      }
+      .profile-card p {
+        margin: 0.5rem 0;
+        color: #555;
+        font-size: 0.9rem;
+      }
+      .profile-avatar {
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        background-color: #ddd;
+        margin: 0 auto 1rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 3rem;
+        color: #999;
+        user-select: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container" role="main" aria-label="Thank you message">
+      <h1>⛽️ Your Order wil be received... ⛽️</h1>
+      <div class="profile-div">
+        <div class="profile-card">
+          <div class="profile-avatar" aria-label="User Avatar">👤</div>
+          <h2 id="user-name"><%= name %></h2>
+          <p>
+            <strong>Email:</strong>
+            <span id="user-email"><%= email %></span>
+          </p>
+          <p>
+            <strong>Address</strong>
+            <span id="user-location"><%= address %></span>
+          </p>
+          <p>
+            <strong> <b> Total Rupees : </b></strong>
+            <span id="user-member-since"><b> <%= sum %></b></span>
+          </p>
+        </div>
+      </div>
+
+      <div class="order">
+        <h2>
+          <u>From </u>: -<span> <b><%= OrderPlace %></b></span>
+        </h2>
+      </div>
+      <div class="order">
+        <h2>
+          <u>To </u>: -<span> <b><%= address %></b></span>
+        </h2>
+      </div>
+
+      <a href=" #"><button>Track Order</button></a>
+      <hr />
+      <hr />
+      <div class="icon" aria-hidden="true">⛽️</div>
+      <h1>Thank You for Visiting Our On Road Fuel</h1>
+
+      <div class="buttons">
+        <button type="button" class="btn-cancel" aria-label="Cancel Order">
+          Cancel Order
+        </button>
+        <a href="/"
+          ><button type="button" class="btn-home" aria-label="Go to Home Page">
+            Go to Home Page
+          </button></a
+        >
+      </div>
+    </div>
+  </body>
+</html>
