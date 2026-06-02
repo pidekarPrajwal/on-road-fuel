@@ -5,6 +5,7 @@ const ejsMate = require("ejs-mate");
 const path = require("path");
 const session = require("express-session");
 const flash = require("connect-flash");
+const { render } = require("ejs");
 const PORT = 8080;
 
 
@@ -54,11 +55,12 @@ app.get("/", (req, res) => {
 
 app.get("/login", (req, res) => {
   req.flash("Success", ["Welcome to Onroad Fuel"]);
-  res.render("./userPage/login.ejs");
+  console.log("Login page is rendered..." + render_path);
+  res.render("./views/userPage/login.ejs");
 });
 
 app.get("/signup", (req, res) => {
-  res.render("./userPage/signup.ejs");
+  res.render("./views/userPage/signup.ejs");
 });
 
 app.post("/signup", (req, res) => {
@@ -77,7 +79,7 @@ app.post("/signup", (req, res) => {
         (err, result) => {
           if (result.affectedRows == 1) {
             req.flash("Success", "user singup succesfully...");
-            res.render("./userPage/login.ejs");
+            res.render("./views/userPage/login.ejs");
           } else {
             console.log("Data Insert ERROR :", err.message);
             res.send("signup fail");
@@ -98,7 +100,7 @@ app.post("/login", (req, res) => {
       res.redirect("/signup");
     } else {
       req.flash("Success", "Welcome ...!");
-      res.render("./Userpage/profile.ejs", { result });
+      res.render("./views/Userpage/profile.ejs", { result });
     }
   });
 });
@@ -114,7 +116,7 @@ app.get("/GetFuel/:email", (req, res) => {
       return res.redirect("/someErrorPage"); // Redirect to an error page or handle it accordingly
     } else {
       req.flash("Sucess ", "Order a Fuel..");
-      res.render("./fuelDemand/GetFuel.ejs", { result });
+      res.render("./views/fuelDemand/GetFuel.ejs", { result });
     }
   });
 });
@@ -137,7 +139,7 @@ app.post("/fuelorder/:email", (req, res) => {
       console.log("REsult to print insert query===>", result);
       if (result.affectedRows === 1) {
         console.log("order placed....");
-        res.render("./fuelDemand/ThankYou.ejs", {
+        res.render("./views/fuelDemand/ThankYou.ejs", {
           name,
           email,
           mobno,
@@ -164,7 +166,7 @@ app.get("/GetFuel/:email/edit", (req, res) => {
       res.send("Some error");
     } else {
       console.log("REsul to print the slect query", result);
-      res.render("./layout/EditProfile.ejs", { result });
+      res.render("./views/layout/EditProfile.ejs", { result });
     }
   });
 });
