@@ -197,7 +197,7 @@ app.all("*", async (err, req, res, next) => {
 });
 
 app.listen(PORT, () => {
-  console.log("App is listining on => " + PORT);
+  console.log("App is listining on => " + PORT); 
 });
 
 //  in that code not give incorrect password warning please give me code in right way
