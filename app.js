@@ -7,6 +7,7 @@ const session = require("express-session");
 const flash = require("connect-flash");
 const PORT = 8080;
 
+
 //midleware
 app.set("View engine", "ejs");
 app.set("views", path.join(__dirname, "Views"));
@@ -31,12 +32,14 @@ app.use((req, res, next) => {
   next();
 });
 
+require("dotenv").config();
+
 //connection
 const connection = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "your Password",
-  database: "onroadfuel",
+  host    : env.DB_HOST,
+  user    : env.DB_USER,
+  password: env.DB_PASSWORD,
+  database: env.DB_NAME,
 });
 connection.connect((err) => {
   if (err) {
