@@ -36,10 +36,10 @@ require("dotenv").config();
 
 //connection
 const connection = mysql.createConnection({
-  host    : env.DB_HOST,
-  user    : env.DB_USER,
-  password: env.DB_PASSWORD,
-  database: env.DB_NAME,
+  host    : process.env.DB_HOST,
+  user    : process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
 });
 connection.connect((err) => {
   if (err) {
@@ -47,6 +47,9 @@ connection.connect((err) => {
     return;
   }
   console.log("Connected to MySQL Database");
+});
+app.get("/", (req, res) => {
+  res.render("./views/home.ejs");
 });
 
 app.get("/login", (req, res) => {
